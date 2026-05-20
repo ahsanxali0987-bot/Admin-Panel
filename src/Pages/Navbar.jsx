@@ -32,7 +32,7 @@ const Navbar = ({ setSidebarOpen }) => {
           />
 
           {/* Title */}
-          <p className="hidden sm:block text-[16px] md:text-[20px] font-medium">
+          <p className="hidden sm:block text-[16px] md:text-[18px] lg:text-[20px] font-medium">
             Platform Overview
           </p>
         </div>
@@ -56,7 +56,7 @@ const Navbar = ({ setSidebarOpen }) => {
         </div>
 
         {/* Right Icons */}
-        <div className="hidden md:block">
+        <div className="hidden lg:block">
           <div className="flex items-center gap-2 md:gap-3">
             <button className="w-[36px] h-[36px] md:w-[38px] md:h-[38px] flex items-center justify-center rounded-full bg-[#f8f8f8]">
               <RiSettings5Line size={18} className="text-[#7c7c7c]" />
@@ -75,7 +75,7 @@ const Navbar = ({ setSidebarOpen }) => {
       </div>
 
       {/* Mobile Search */}
-      <div className="px-3 pb-3 md:hidden mt-4">
+      <div className="mx-3 pb-3 md:hidden mt-4">
         <div className="border border-[#acadb5] rounded-full flex h-[45px] items-center pl-4 gap-2 overflow-hidden">
           <CiSearch size={20} className="text-[#acadb5] flex-shrink-0" />
           <input
