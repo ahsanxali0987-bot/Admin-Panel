@@ -1,187 +1,247 @@
 import React from "react";
-
-const systemLogsData = [
-  {
-    id: 1,
-    timestamp: "2024-12-26 10:00",
-    logType: "Server Error",
-    userAdmin: "System",
-    description: "Database connection lost",
-    status: "Resolved",
-  },
-  {
-    id: 2,
-    timestamp: "2024-12-26 10:15",
-    logType: "Login Attempt",
-    userAdmin: "User123",
-    description: "Failed login attempt",
-    status: "Failed",
-  },
-  {
-    id: 3,
-    timestamp: "2024-12-26 10:20",
-    logType: "User Action",
-    userAdmin: "Admin_Alice",
-    description: "Changed payment settings",
-    status: "Success",
-  },
-];
-
-const securityLogsData = [
-  {
-    id: 1,
-    timestamp: "2024-12-26 10:00",
-    eventType: "Failed Login",
-    userAdmin: "User456",
-    ipAddress: "192.168.1.10",
-    riskLevel: "High",
-    action: "Block IP",
-  },
-  {
-    id: 2,
-    timestamp: "2024-12-26 10:15",
-    eventType: "Unauthorized Access",
-    userAdmin: "Unknown",
-    ipAddress: "10.0.0.5",
-    riskLevel: "Critical",
-    action: "Review Log",
-  },
-  {
-    id: 3,
-    timestamp: "2024-12-26 10:20",
-    eventType: "Profile Edit",
-    userAdmin: "User789",
-    ipAddress: "172.16.0.3",
-    riskLevel: "Medium",
-    action: "Notify User",
-  },
-];
+import ReportsAndLogsData from "../../Data/ReportsAndLogsData";
+const { systemLogsData, securityLogsData } = ReportsAndLogsData;
 
 const ReportsAndLogs = () => {
   return (
-    <div className="bg-white pb-4 rounded-lg shadow-[0_0_15px_rgba(0,0,0,0.1)]">
-      <div className="text-[16px] font-semibold text-[#000000E5] px-4 pt-4 pb-2 bg-white border-b-[1px] bordr-[#DFDFDF] mb-3">
-        Reports & Logs
-      </div>
+    <div className="w-full max-w-[1400px] mx-auto flex flex-col gap-6 bg-[#F5F5F5] min-h-screen box-border font-[Poppins]">
+      <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+        rel="stylesheet"
+      />
 
-      {/* ── System Logs ── */}
-      <div className="overflow-hidden px-5 pt-3 pb-2 bg-[#F5F5F5]">
-        <p className="text-[16px] font-semibold text-[#000000CC] pb-2">
-          System Logs
-        </p>
-        <table className="w-full border-collapse">
-          <thead>
-            <tr>
-              <th className="py-1 pr-4 text-left text-[14px] font-medium text-[#000000CC]">
-                Timestamp
-              </th>
-              <th className="py-1 px-4 text-left text-[14px] font-medium text-[#000000CC]">
-                Log Type
-              </th>
-              <th className="py-1 px-4 text-left text-[14px] font-medium text-[#000000CC]">
-                User/Admin
-              </th>
-              <th className="py-1 px-4 text-left text-[14px] font-medium text-[#000000CC]">
-                Description
-              </th>
-              <th className="py-1 px-4 text-left text-[14px] font-medium text-[#000000CC]">
-                Status
-              </th>
-              <th className="py-2 pl-14 text-left text-[14px] font-medium text-[#000000CC]">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody>
+      {/* Main Wrapper Node Container */}
+      <div className="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] border border-gray-100 overflow-hidden">
+        {/* Module Core Header */}
+        <div className="text-[17px] sm:text-[19px] font-semibold text-[#000000E5] px-4 py-4 sm:px-6 bg-white border-b border-[#DFDFDF]">
+          Reports & Logs
+        </div>
+
+        {/* ── SECTION 1: SYSTEM LOGS LAYER ── */}
+        <div className="p-4 sm:p-5 mt-3 bg-gray-100">
+          <p className="text-[15px] sm:text-[16px] font-semibold text-[#000000CC] pb-3 m-0 tracking-tight">
+            System Logs
+          </p>
+
+          {/* Mobile Stacked Logs Cards View (Hidden on Tablet/Desktops) */}
+          <div className="block md:hidden space-y-3.5">
             {systemLogsData.map((log) => (
-              <tr key={log.id}>
-                <td className="py-2 pr-4 text-[13px] text-[#000000E5]">
-                  {log.timestamp}
-                </td>
-                <td className="py-2 px-4 text-[13px] text-[#000000E5]">
-                  {log.logType}
-                </td>
-                <td className="py-2 px-4 text-[13px] text-[#000000E5]">
-                  {log.userAdmin}
-                </td>
-                <td className="py-2 px-4 text-[13px] text-[#000000E5]">
-                  {log.description}
-                </td>
-                <td className="py-2 px-4 text-[13px] text-[#000000E5]">
-                  {log.status}
-                </td>
-                <td className="py-1">
-                  <div className="flex justify-end">
-                    <button className="bg-[#e45252] hover:bg-[#cc3e3e] w-[120px] text-white text-[12px] font-semibold px-4 py-1 rounded-full transition-colors">
-                      View
-                    </button>
+              <div
+                key={log.id}
+                className="bg-gray-50 rounded-xl p-4 border border-gray-200/60 space-y-3 shadow-xs"
+              >
+                <div className="flex justify-between items-center">
+                  <span className="text-[12px] font-mono text-gray-400">
+                    {log.timestamp}
+                  </span>
+                  <span
+                    className={`px-2.5 py-0.5 rounded-md text-xs font-medium ${
+                      log.status === "Success" || log.status === "Resolved"
+                        ? "text-green-700 bg-green-50"
+                        : "text-red-700 bg-red-50"
+                    }`}
+                  >
+                    {log.status}
+                  </span>
+                </div>
+                <div className="space-y-1 text-[13px]">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Type:</span>{" "}
+                    <span className="font-medium text-gray-900">
+                      {log.logType}
+                    </span>
                   </div>
-                </td>
-              </tr>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Actor:</span>{" "}
+                    <span className="text-gray-800">{log.userAdmin}</span>
+                  </div>
+                  <p className="text-gray-600 bg-white/80 p-2 rounded border border-gray-100 mt-2 text-xs leading-relaxed">
+                    {log.description}
+                  </p>
+                </div>
+                <button className="w-full bg-[#e45252] hover:bg-[#cc3e3e] text-white text-[12px] font-semibold py-2 rounded-full transition-colors shadow-xs mt-1">
+                  View Details
+                </button>
+              </div>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </div>
 
-      <hr className="h-[9px] bg-white border-none" />
+          {/* Desktop Matrix Grid view (Hidden on Mobile viewports) */}
+          <div className="hidden md:block overflow-x-auto w-full rounded-xl border border-gray-100">
+            <table className="w-full border-collapse min-w-[800px]">
+              <thead>
+                <tr className="border-b border-[#DFDFDF]">
+                  {[
+                    "Timestamp",
+                    "Log Type",
+                    "User/Admin",
+                    "Description",
+                    "Status",
+                    "Actions",
+                  ].map((th) => (
+                    <th
+                      key={th}
+                      className={`py-3 px-5 text-left text-[14px] font-medium text-[#000000CC] ${th === "Actions" ? "text-right pr-8" : ""}`}
+                    >
+                      {th}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {systemLogsData.map((log) => (
+                  <tr
+                    key={log.id}
+                    className="hover:bg-gray-50/50 transition-colors"
+                  >
+                    <td className="py-3.5 px-5 text-[13px] text-[#000000E5] font-mono">
+                      {log.timestamp}
+                    </td>
+                    <td className="py-3.5 px-5 text-[13px] font-medium text-gray-900">
+                      {log.logType}
+                    </td>
+                    <td className="py-3.5 px-5 text-[13px] text-gray-700">
+                      {log.userAdmin}
+                    </td>
+                    <td className="py-3.5 px-5 text-[13px] text-gray-600 max-w-[240px] truncate">
+                      {log.description}
+                    </td>
+                    <td className="py-3.5 px-5 text-[13px]">
+                      <span
+                        className={`px-2.5 py-0.5 rounded text-xs font-medium`}
+                      >
+                        {log.status}
+                      </span>
+                    </td>
+                    <td className="py-2 px-5 text-right pr-6">
+                      <button className="bg-[#e45252] hover:bg-[#cc3e3e] w-[110px] text-white text-[12px] font-semibold py-1.5 rounded-full transition-colors shadow-xs">
+                        View
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-      {/* ── Security Logs ── */}
-      <div className="overflow-hidden px-5 pt-3 pb-2 bg-[#F5F5F5]">
-        <p className="text-[16px] font-semibold text-[#000000CC] pb-2">
-          Security Logs
-        </p>
-        <table className="w-full border-collapse">
-          <thead>
-            <tr className="bg-[#f5f5f5]">
-              <th className="py-1 pr-4 text-left text-[14px] font-medium text-[#000000CC]">
-                Timestamp
-              </th>
-              <th className="py-1 px-4 text-left text-[14px] font-medium text-[#000000CC]">
-                Event Type
-              </th>
-              <th className="py-1 px-4 text-left text-[14px] font-medium text-[#000000CC]">
-                User/Admin
-              </th>
-              <th className="py-1 px-4 text-left text-[14px] font-medium text-[#000000CC]">
-                IP Address
-              </th>
-              <th className="py-1 px-4 text-left text-[14px] font-medium text-[#000000CC]">
-                Risk Level
-              </th>
-              <th className="py-1 pl-14 text-left text-[13px] font-medium text-[#000000CC]">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody>
+        {/* Dynamic Structural Divider Gap Element */}
+        <div className="h-[1px] bg-gray-200 mx-4 sm:mx-6" />
+
+        {/* ── SECTION 2: SECURITY LOGS LAYER ── */}
+        <div className="p-4 sm:p-5 mt-3 bg-gray-100">
+          <p className="text-[15px] sm:text-[16px] font-semibold text-[#000000CC] pb-3 m-0 tracking-tight">
+            Security Logs
+          </p>
+
+          {/* Mobile Stacked Security Cards View (Hidden on Tablet/Desktops) */}
+          <div className="block md:hidden space-y-3.5">
             {securityLogsData.map((log) => (
-              <tr key={log.id} className="border-t border-[#f0f0f0]">
-                <td className="py-2 px-4 text-[13px] text-[#000000E5]">
-                  {log.timestamp}
-                </td>
-                <td className="py-2 px-4 text-[13px] text-[#000000E5]">
-                  {log.eventType}
-                </td>
-                <td className="py-2 px-4 text-[13px] text-[#000000E5]">
-                  {log.userAdmin}
-                </td>
-                <td className="py-2 px-4 text-[13px] text-[#000000E5]">
-                  {log.ipAddress}
-                </td>
-                <td className="py-2 px-4 text-[13px] text-[#000000E5]">
-                  {log.riskLevel}
-                </td>
-                <td className="py-2">
-                  <div className="flex justify-end">
-                    <button className="bg-[#e45252] hover:bg-[#cc3e3e] w-[120px] text-white text-[12px] font-semibold px-4 py-1 rounded-full transition-colors">
-                      {log.action}
-                    </button>
+              <div
+                key={log.id}
+                className="bg-gray-50 rounded-xl p-4 border border-gray-200/60 space-y-3 shadow-xs"
+              >
+                <div className="flex justify-between items-center">
+                  <span className="text-[12px] font-mono text-gray-400">
+                    {log.timestamp}
+                  </span>
+                  <span
+                    className={`px-2.5 py-0.5 rounded-md text-xs font-semibold ${
+                      log.riskLevel === "Critical"
+                        ? "text-red-700 bg-red-50 border border-red-200"
+                        : log.riskLevel === "High"
+                          ? "text-orange-700 bg-orange-50"
+                          : "text-amber-700 bg-amber-50"
+                    }`}
+                  >
+                    {log.riskLevel} Risk
+                  </span>
+                </div>
+                <div className="space-y-1.5 text-[13px]">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Event:</span>{" "}
+                    <span className="font-semibold text-gray-900">
+                      {log.eventType}
+                    </span>
                   </div>
-                </td>
-              </tr>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">User Context:</span>{" "}
+                    <span className="text-gray-800 font-medium">
+                      {log.userAdmin}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">IP Pointer:</span>{" "}
+                    <span className="text-gray-600 font-mono text-xs">
+                      {log.ipAddress}
+                    </span>
+                  </div>
+                </div>
+                <button className="w-full bg-[#e45252] hover:bg-[#cc3e3e] text-white text-[12px] font-semibold py-2 rounded-full transition-colors shadow-xs mt-1">
+                  {log.action}
+                </button>
+              </div>
             ))}
-          </tbody>
-        </table>
+          </div>
+
+          {/* Desktop Security Logs Table Node (Hidden on Mobile viewports) */}
+          <div className="hidden md:block overflow-x-auto w-full rounded-xl border border-gray-100">
+            <table className="w-full border-collapse min-w-[800px]">
+              <thead>
+                <tr className="border-b border-[#DFDFDF]">
+                  {[
+                    "Timestamp",
+                    "Event Type",
+                    "User/Admin",
+                    "IP Address",
+                    "Risk Level",
+                    "Actions",
+                  ].map((th) => (
+                    <th
+                      key={th}
+                      className={`py-3 px-5 text-left text-[14px] font-medium text-[#000000CC] ${th === "Actions" ? "text-right pr-8" : ""}`}
+                    >
+                      {th}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {securityLogsData.map((log) => (
+                  <tr
+                    key={log.id}
+                    className="hover:bg-gray-50/50 transition-colors"
+                  >
+                    <td className="py-3.5 px-5 text-[13px] text-[#000000E5] font-mono">
+                      {log.timestamp}
+                    </td>
+                    <td className="py-3.5 px-5 text-[13px] font-semibold text-gray-900">
+                      {log.eventType}
+                    </td>
+                    <td className="py-3.5 px-5 text-[13px] text-gray-700">
+                      {log.userAdmin}
+                    </td>
+                    <td className="py-3.5 px-5 text-[13px] text-gray-600 font-mono text-xs">
+                      {log.ipAddress}
+                    </td>
+                    <td className="py-3.5 px-5 text-[13px]">
+                      <span
+                        className={`px-2.5 py-0.5 rounded text-xs font-semibold `}
+                      >
+                        {log.riskLevel}
+                      </span>
+                    </td>
+                    <td className="py-2 px-5 text-right pr-6">
+                      <button className="bg-[#e45252] hover:bg-[#cc3e3e] w-[110px] text-white text-[12px] font-semibold py-1.5 rounded-full transition-colors shadow-xs">
+                        {log.action}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import { RiSettings5Line } from "react-icons/ri";
 import { PiChatTeardropDotsThin } from "react-icons/pi";
 import { LuBellDot } from "react-icons/lu";
 import { FaSignOutAlt } from "react-icons/fa";
-import { HiOutlineMenuAlt3 } from "react-icons/hi";
+import { RxHamburgerMenu } from "react-icons/rx";;
 import FilterPopup from "../Components/Navbar.jsx/FilterPopup";
 
 const Navbar = ({ setSidebarOpen }) => {
@@ -21,7 +21,7 @@ const Navbar = ({ setSidebarOpen }) => {
             className="block lg:hidden"
             onClick={() => setSidebarOpen(true)}
           >
-            <HiOutlineMenuAlt3 size={28} />
+            <RxHamburgerMenu size={28} />
           </button>
 
           {/* Logo */}
@@ -75,7 +75,7 @@ const Navbar = ({ setSidebarOpen }) => {
       </div>
 
       {/* Mobile Search */}
-      <div className="mx-3 pb-3 md:hidden mt-4">
+      <div className="pb-3 md:hidden mt-4 mx-10 max-w-[300px] w-full">
         <div className="border border-[#acadb5] rounded-full flex h-[45px] items-center pl-4 gap-2 overflow-hidden">
           <CiSearch size={20} className="text-[#acadb5] flex-shrink-0" />
           <input

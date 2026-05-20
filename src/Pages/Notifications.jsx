@@ -27,30 +27,8 @@ const notificationSections = [
   },
 ];
 
-const Toggle = ({ enabled, onToggle }) => (
-  <button
-    onClick={onToggle}
-    className={`relative inline-flex items-center w-[52px] h-[26px] rounded-full transition-colors duration-200 border-none cursor-pointer flex-shrink-0 ${
-      enabled ? "bg-[#5ADB5A]" : "bg-gray-300"
-    }`}
-  >
-    {/* ON label */}
-    {enabled && (
-      <span className="absolute left-[6px] text-white text-[9px] font-semibold tracking-wide">
-        ON
-      </span>
-    )}
-    {/* Knob */}
-    <span
-      className={`absolute top-[3px] w-5 h-5 bg-white rounded-full shadow transition-all duration-200 ${
-        enabled ? "left-[28px]" : "left-[3px]"
-      }`}
-    />
-  </button>
-);
-
 const Notifications = () => {
-  // Build initial toggle state: all ON
+  // Initial state logic build: saare alerts default ON rahenge
   const initialState = notificationSections.reduce((acc, section) => {
     section.items.forEach((_, i) => {
       acc[`${section.title}-${i}`] = true;
@@ -65,65 +43,86 @@ const Notifications = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F5F5] font-[Poppins]">
+    <div className="min-h-screen bg-[#F5F5F5] font-[Poppins] flex justify-center items-start">
       <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
         rel="stylesheet"
       />
 
-      <div className="bg-white rounded-xl shadow-[0_0_10px_rgba(0,0,0,0.08)] overflow-hidden">
-        {/* Header */}
-        <div className="px-6 py-4 border-b border-[#E0E0E0]">
-          <h1 className="text-[20px] font-semibold text-black/90 m-0">
+      {/* Main Container - Automatically scales up to 1000px max layout limits */}
+      <div className="w-full max-w-[1000px] bg-white rounded-xl sm:rounded-2xl shadow-[0_0_12px_rgba(0,0,0,0.06)] border border-gray-100/40 overflow-hidden transition-all duration-300">
+        
+        {/* Module Header Area */}
+        <div className="px-4 py-4 sm:px-6 sm:py-5 lg:px-8 border-b border-[#E0E0E0]">
+          <h1 className="text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] font-semibold text-black/95 m-0 tracking-wide">
             Notifications & Alerts
           </h1>
         </div>
 
-        {/* Sections */}
-        <div className="px-6 py-4 space-y-6">
-          {notificationSections.map((section) => (
+        {/* Categories Structural Block Container */}
+        <div className="px-4 py-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
+          {notificationSections.map((section, sectionIdx) => (
             <div key={section.title}>
-              {/* Section Title */}
-              <h2 className="text-[15px] font-semibold text-black mb-3 m-0">
+              
+              {/* Category Heading Title */}
+              <h2 className="text-[14px] sm:text-[15px] md:text-[16px] lg:text-[17px] font-semibold text-black mb-3 sm:mb-4 m-0 tracking-tight">
                 {section.title}
-              </h2>
+              </h2> 
 
-              {/* Items */}
-              <div className="space-y-3">
+              {/* Items Container List */}
+              <div className="space-y-3 sm:space-y-4">
                 {section.items.map((item, i) => {
                   const key = `${section.title}-${i}`;
+                  const isEnabled = toggles[key];
+
                   return (
-                    <div
-                      key={key}
-                      className="flex items-center justify-between gap-4"
+                    <div 
+                      key={key} 
+                      className="flex items-start justify-between gap-4 py-1.5 sm:py-1"
                     >
-                      {/* Bullet + Text */}
-                      <div className="flex items-center gap-2">
-                        <span className="text-black text-[13px] leading-none">
+                      {/* Bullet Icon + Description - items-start ensures clear top alignment if text wraps */}
+                      <div className="flex items-start gap-2.5 pt-0.5 sm:pt-0">
+                        <span className="text-gray-400 text-[14px] sm:text-[16px] leading-none select-none">
                           •
                         </span>
-                        <span className="text-[13px] font-normal text-black/80">
+                        <span className="text-[12.5px] sm:text-[13.5px] md:text-[14.5px] font-normal text-black/80 leading-relaxed max-w-[90%] w-full">
                           {item}
                         </span>
                       </div>
 
-                      {/* Toggle */}
-                      <Toggle
-                        enabled={toggles[key]}
-                        onToggle={() => handleToggle(key)}
-                      />
+                      {/* INTERNAL TOGGLE SWITCH COMPONENT */}
+                      <button
+                        onClick={() => handleToggle(key)}
+                        className={`relative inline-flex items-center w-[46px] sm:w-[52px] h-[22px] sm:h-[26px] rounded-full transition-colors duration-200 border-none cursor-pointer flex-shrink-0 focus:outline-none select-none ${
+                          isEnabled ? "bg-[#5ADB5A]" : "bg-gray-300"
+                        }`}
+                      >
+                        {/* ON Label: Text collapses dynamically */}
+                        {isEnabled && (
+                          <span className="absolute left-[5px] sm:left-[6px] text-white text-[8px] sm:text-[9px] font-semibold tracking-wide">
+                            ON
+                          </span>
+                        )}
+                        {/* Sliding Knob */}
+                        <span
+                          className={`absolute top-[2px] sm:top-[3px] w-[18px] sm:w-5 h-[18px] sm:h-5 bg-white rounded-full shadow transition-all duration-200 ${
+                            isEnabled ? "left-[25px] sm:left-[28px]" : "left-[3px]"
+                          }`}
+                        />
+                      </button>
                     </div>
                   );
                 })}
               </div>
 
-              {/* Divider (except after last section) */}
-              {section.title !== "Event Notifications" && (
-                <div className="mt-5 border-b border-[#E0E0E0]" />
+              {/* Bottom Border Divider */}
+              {sectionIdx !== notificationSections.length - 1 && (
+                <div className="mt-6 sm:mt-8 border-b border-[#E0E0E0]/80" />
               )}
             </div>
           ))}
         </div>
+
       </div>
     </div>
   );
