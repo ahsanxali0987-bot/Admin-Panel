@@ -131,7 +131,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           </h1>
 
           {/* Right Icons */}
-          <div className="block md:hidden">
+          <div className="block md:hidden mt-2">
             <div className="flex items-center gap-2 md:gap-3">
               <button className="w-[36px] h-[36px] md:w-[38px] md:h-[38px] flex items-center justify-center rounded-full bg-[#f8f8f8]">
                 <RiSettings5Line size={18} className="text-[#7c7c7c]" />

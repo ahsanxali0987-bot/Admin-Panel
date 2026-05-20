@@ -28,7 +28,7 @@ const Navbar = ({ setSidebarOpen }) => {
           <img
             src="Logo.png"
             alt="Logo"
-            className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover"
+            className="w-6 md:w-8 lg:w-10 xl:h-12 rounded-full object-cover"
           />
 
           {/* Title */}

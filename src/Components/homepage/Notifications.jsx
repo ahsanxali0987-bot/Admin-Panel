@@ -25,7 +25,7 @@ const Notifications = () => {
       {/* Header */}
       <div className="flex items-center justify-between py-4 px-5 border-b border-[#dfdfdf] md:border-b-0">
         {/* Heading */}
-        <p className="text-[#000000E5] font-semibold text-[17px] flex items-center gap-3">
+        <p className="text-[#000000E5] font-semibold text-[11px] md:text-[13px] lg:text-[15px] xl:text-[17px] flex items-center gap-3">
           Alerts & Notifications
           <span className="text-[18px] text-[#e45252] font-semibold">3</span>
         </p>
